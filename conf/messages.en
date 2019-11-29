@@ -10,9 +10,9 @@ site.edit.hidden = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.service_name = tax-residency-indicator-tool-frontend
+site.service_name = Tax Residency Indicator Tool
 site.textarea.char_limit = (Limit is {0} characters)
-site.title.suffix = - tax-residency-indicator-tool-frontend - GOV.UK
+site.title.suffix = - Tax Residency Indicator Tool - GOV.UK
 
 error.title.prefix = Error:
 error.summary.title = There is a problem
@@ -37,8 +37,8 @@ phaseBanner.3 = will help us to improve it.
 checkYourAnswers.title = Check your answers
 checkYourAnswers.heading = Check your answers
 
-index.title = tax-residency-indicator-tool-frontend
-index.heading = tax-residency-indicator-tool-frontend
+index.title = Tax Residency Indicator Tool
+index.heading = Tax Residency Indicator Tool
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 
 session_expired.title = For your security, this service has been reset
