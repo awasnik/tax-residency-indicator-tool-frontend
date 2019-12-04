@@ -44,7 +44,21 @@ class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with 
 
   val html = renderer.render("homePage.njk").futureValue
 
-  behave like normalPage(html, "homePage")
+  behave like normalPage(html, "homePage",
+    "p1", "p2.1", "p2.anchor", "p2.2", "p3", "p4.1", "p4.anchor", "p4.2", "p5",
+    "numberOfDays.l1", "numberOfDays.l2", "warning", "helpAndGuidance.h2")
+
+  "link" - {
+    "information" in {
+      assertLinkByText(asDocument(html), messages("homePage.p2.anchor"),
+        "https://www.gov.uk/hmrc-internal-manuals/residence-domicile-and-remittance-basis/rdrm12900")
+    }
+
+    "Statutory Residence Test (SRT)" in {
+      assertLinkByText(asDocument(html), messages("homePage.p4.anchor"),
+        "https://www.gov.uk/government/publications/rdr3-statutory-residence-test-srt/guidance-note-for-statutory-residence-test-srt-rdr3")
+    }
+  }
 
 
 }

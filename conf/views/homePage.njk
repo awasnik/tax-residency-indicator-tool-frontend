@@ -1,6 +1,8 @@
 {% extends "includes/layout.njk" %}
 
-{% from "macros/title.njk"                         import title %}
+{% from "macros/title.njk" import title %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block pageTitle %}
   {{ title(messages("homePage.title")) }}
@@ -15,6 +17,34 @@
         <h1 class="govuk-heading-xl">
           {{ messages("homePage.heading") }}
         </h1>
+         <p class="govuk-body">
+             {{ messages("homePage.p1") }}
+         </p>
+
+         <p class="govuk-body" >
+             {{ messages("homePage.p2.1") }} <a class="govuk-link" target="_blank" href="https://www.gov.uk/hmrc-internal-manuals/residence-domicile-and-remittance-basis/rdrm12900">{{ messages("homePage.p2.anchor") }}</a> {{ messages("homePage.p2.2") }}
+         </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>{{ messages("homePage.numberOfDays.l1") }}</li>
+            <li>{{ messages("homePage.numberOfDays.l2") }}</li>
+          </ul>
+          {{ govukWarningText({
+            text: messages("homePage.warning"),
+            iconFallbackText: "Warning"
+          }) }}
+
+          <h2 class="govuk-heading-m">{{ messages("homePage.helpAndGuidance.h2") }}</h2>
+
+          <p class="govuk-body">{{ messages("homePage.p3") }}</p>
+
+          <p class="govuk-body">{{ messages("homePage.p4.1") }} <a class="govuk-link" target="_blank" href="https://www.gov.uk/government/publications/rdr3-statutory-residence-test-srt/guidance-note-for-statutory-residence-test-srt-rdr3">{{ messages("homePage.p4.anchor") }}</a>
+                    {{ messages("homePage.p4.2") }}</p>
+          <p class="govuk-body">{{ messages("homePage.p5") }}</p>
+
+
+          {{ govukButton({
+            text: messages("site.continue")
+          }) }}
 
       </div>
     </div>
