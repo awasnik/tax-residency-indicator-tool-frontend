@@ -10,9 +10,9 @@ site.edit.hidden = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.service_name = Tax Residency Indicator Tool
+site.service_name = Check your tax residency status
 site.textarea.char_limit = (Limit is {0} characters)
-site.title.suffix = - Tax Residency Indicator Tool - GOV.UK
+site.title.suffix = - Check your tax residency status - GOV.UK
 
 error.title.prefix = Error:
 error.summary.title = There is a problem
@@ -130,5 +130,5 @@ compliant.nine.p2.2=Digital Accessibility Centre
 compliant.nine.p2.3=The full service was tested by HMRC and included disabled users.
 compliant.nine.p3=This page was prepared on [date when it was first published]. It was last updated on [date when it was last updated].
 
-homePage.title = homePage
-homePage.heading = homePage
+homePage.title = What you’ll need
+homePage.heading = What you’ll need

@@ -14,4 +14,4 @@ GET        /unauthorised                                controllers.Unauthorised
 
 GET        /accessibility-statement                     controllers.AccessibilityController.onPageLoad
 
-GET        /homePage                                    controllers.HomePageController.onPageLoad()
+GET        /home                                        controllers.HomePageController.onPageLoad()
