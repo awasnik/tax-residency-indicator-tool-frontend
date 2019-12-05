@@ -29,6 +29,7 @@ import play.api.test.Helpers.GET
 import renderer.Renderer
 import uk.gov.hmrc.viewmodels.NunjucksSupport
 import views.behaviours.ViewBehaviours
+import config.FrontendAppConfig
 
 class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with JsonMatchers with ViewBehaviours{
 
@@ -39,6 +40,7 @@ class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with 
     ).build()
 
   val renderer = application.injector.instanceOf[Renderer]
+  val config = application.injector.instanceOf[FrontendAppConfig]
   lazy val homePageRoute = routes.HomePageController.onPageLoad().url
   implicit val request = FakeRequest(GET, homePageRoute)
 
@@ -50,13 +52,11 @@ class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with 
 
   "link" - {
     "information" in {
-      assertLinkByText(asDocument(html), messages("homePage.p2.anchor"),
-        "https://www.gov.uk/hmrc-internal-manuals/residence-domicile-and-remittance-basis/rdrm12900")
+      assertLinkByUrl(asDocument(html), config.informationUrl)
     }
 
     "Statutory Residence Test (SRT)" in {
-      assertLinkByText(asDocument(html), messages("homePage.p4.anchor"),
-        "https://www.gov.uk/government/publications/rdr3-statutory-residence-test-srt/guidance-note-for-statutory-residence-test-srt-rdr3")
+      assertLinkByUrl(asDocument(html), config.statutoryResidenceTestUrl)
     }
   }
 
