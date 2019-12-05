@@ -60,5 +60,7 @@ class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with 
     }
   }
 
-
+  "continue-button" - {
+    behave like pageWithSubmitButton(asDocument(html), "continue")
+  }
 }

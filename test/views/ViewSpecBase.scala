@@ -122,4 +122,13 @@ trait ViewSpecBase extends SpecBase {
     val href = link.attr("href")
     assert(href == url, s"\n\nLink has href $href not $url")
   }
+
+  def pageWithSubmitButton(doc: Document,name: String): Unit = {
+    "behave like a page with a button" in {
+      val button = doc.getElementsByClass("govuk-button")
+      val actualName = button.attr("name")
+      assert(name == actualName, "\n\nElement " + name + " was not rendered on the page.\n")
+    }
+  }
+
 }
