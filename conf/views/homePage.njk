@@ -1,0 +1,55 @@
+{% extends "includes/layout.njk" %}
+
+{% from "macros/title.njk" import title %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  {{ title(messages("homePage.title")) }}
+{% endblock %}
+
+{% block mainContent %}
+
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+          {{ messages("homePage.heading") }}
+        </h1>
+         <p class="govuk-body">
+             {{ messages("homePage.p1") }}
+         </p>
+
+         <p class="govuk-body" >
+             {{ messages("homePage.p2.1") }} <a class="govuk-link" target="_blank" href="{{ config.informationUrl }}">{{ messages("homePage.p2.anchor") }}</a> {{ messages("homePage.p2.2") }}
+         </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>{{ messages("homePage.numberOfDays.l1") }}</li>
+            <li>{{ messages("homePage.numberOfDays.l2") }}</li>
+          </ul>
+
+          {{ govukWarningText({
+            text: messages("homePage.warning"),
+            iconFallbackText: "Warning"
+          }) }}
+
+          <h2 class="govuk-heading-m">{{ messages("homePage.helpAndGuidance.h2") }}</h2>
+
+          <p class="govuk-body">{{ messages("homePage.p3") }}</p>
+
+          <p class="govuk-body">{{ messages("homePage.p4.1") }} <a class="govuk-link" target="_blank" href="{{ config.statutoryResidenceTestUrl }}">{{ messages("homePage.p4.anchor") }}</a>{{ messages("homePage.p4.2") }}</p>
+
+          <p class="govuk-body">{{ messages("homePage.p5") }}</p>
+
+          {{ govukButton({
+            text: messages("site.continue"),
+            name: "continue"
+          }) }}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

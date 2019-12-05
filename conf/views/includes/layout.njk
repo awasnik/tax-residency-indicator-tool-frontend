@@ -1,5 +1,5 @@
 {% extends "govuk/template.njk" %}
-{%- set assetPath = "/assets/lib/govuk-frontend/govuk/assets" -%}
+{%- set assetPath = "/tax-residency-indicator-tool/assets/lib/govuk-frontend/govuk/assets" -%}
 {%- set htmlLang = request.language -%}
 
 {% block head %}
@@ -8,9 +8,9 @@
 
 {% block header %}
   {{ govukHeader({
-    homepageUrl: "/tax-residency-indicator-tool-frontend",
+    homepageUrl: "/tax-residency-indicator-tool",
     serviceName: messages("site.service_name"),
-    serviceUrl: "/tax-residency-indicator-tool-frontend",
+    serviceUrl: "/tax-residency-indicator-tool",
     containerClasses: "govuk-width-container",
     assetsPath: "/assets"
   }) }}
