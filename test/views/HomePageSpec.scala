@@ -17,38 +17,42 @@
 package views
 
 import base.SpecBase
+import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, FakeIdentifierAction, IdentifierAction}
 import controllers.routes
 import matchers.JsonMatchers
-import models.NormalMode
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers.GET
+import play.twirl.api.Html
 import renderer.Renderer
 import uk.gov.hmrc.viewmodels.NunjucksSupport
 import views.behaviours.ViewBehaviours
-import config.FrontendAppConfig
 
 class HomePageSpec extends SpecBase with MockitoSugar with NunjucksSupport with JsonMatchers with ViewBehaviours{
 
-  val application = new GuiceApplicationBuilder()
+  val application: Application = new GuiceApplicationBuilder()
     .overrides(
       bind[DataRequiredAction].to[DataRequiredActionImpl],
       bind[IdentifierAction].to[FakeIdentifierAction]
     ).build()
 
-  val renderer = application.injector.instanceOf[Renderer]
-  val config = application.injector.instanceOf[FrontendAppConfig]
-  lazy val homePageRoute = routes.HomePageController.onPageLoad().url
-  implicit val request = FakeRequest(GET, homePageRoute)
+  val renderer: Renderer = application.injector.instanceOf[Renderer]
+  val config: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
+  lazy val homePageRoute: String = routes.HomePageController.onPageLoad().url
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest(GET, homePageRoute)
 
-  val html = renderer.render("homePage.njk").futureValue
+  val html: Html = renderer.render("homePage.njk").futureValue
 
   behave like normalPage(html, "homePage",
-    "p1", "p2.1", "p2.anchor", "p2.2", "p3", "p4.1", "p4.anchor", "p4.2", "p5",
+    "p1", "p2.1", "p2.anchor", "p2.2", "p3", "p4.1", "p4.2", "p5",
     "numberOfDays.l1", "numberOfDays.l2", "warning", "helpAndGuidance.h2")
+
+  behave like pageWithCommonMessages(html, "common.statutoryResidenceTest")
 
   "link" - {
     "information" in {

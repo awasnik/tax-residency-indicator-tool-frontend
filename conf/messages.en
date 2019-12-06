@@ -142,6 +142,14 @@ homePage.warning=HMRC will not be bound by the results where the information you
 homePage.helpAndGuidance.h2=Help and guidance
 homePage.p3=Your residence status can only be decided by reference to established facts and circumstances.
 homePage.p4.1=It is recommended that you read the parts of the guidance in the
-homePage.p4.anchor=Statutory Residence Test (SRT)
 homePage.p4.2=that are relevant to your circumstances before you start to help you answer the questions accurately.
 homePage.p5=The results given rely on you providing accurate information. You will be able to print a copy of the result and keep this for future reference.
+
+common.statutoryResidenceTest=Statutory Residence Test (SRT)
+common.result.p1=This information is based on the details you have provided and is for information only.
+common.result.further.info=For further information, you can:
+common.result.further.info.l1=refer to the guidance in the
+common.result.further.info.l2=contact
+common.result.further.info.l2.anchor=HMRC
+common.result.further.info.l3.anchor=get help from an
+common.result.further.info.l3.anchor=accountant

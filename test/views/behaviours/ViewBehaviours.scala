@@ -64,6 +64,21 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 
+  def pageWithCommonMessages(view: HtmlFormat.Appendable,
+                             expectedGuidanceKeys: String*): Unit = {
+    "behave like a normal page with common content" - {
+
+      "rendered" - {
+
+        "display the correct guidance" in {
+
+          val doc = asDocument(view)
+          for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(key))
+        }
+      }
+    }
+  }
+
   def pageWithBackLink(view: HtmlFormat.Appendable): Unit = {
 
     "behave like a page with a back link" - {

@@ -40,6 +40,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val loginContinueUrl: String = configuration.get[String]("urls.loginContinue")
   lazy val informationUrl: String = configuration.get[String]("urls.homePage.information")
   lazy val statutoryResidenceTestUrl: String = configuration.get[String]("urls.homePage.statutoryResidenceTest")
+  lazy val contactHmrcUrl: String = configuration.get[String]("urls.resultPage.contactHmrc")
+  lazy val taxHelpUrl: String = configuration.get[String]("urls.resultPage.taxHelp")
 
   lazy val languageTranslationEnabled: Boolean =
     configuration.get[Boolean]("microservice.services.features.welsh-translation")
