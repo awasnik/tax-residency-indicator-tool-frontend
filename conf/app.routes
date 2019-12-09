@@ -17,3 +17,5 @@ GET        /accessibility-statement                     controllers.Accessibilit
 GET        /home                                        controllers.HomePageController.onPageLoad()
 
 GET        /inconclusive-result                         controllers.InconclusiveResultController.onPageLoad()
+
+GET        /non-tax-resident-result                     controllers.NonTaxResidentResultController.onPageLoad()

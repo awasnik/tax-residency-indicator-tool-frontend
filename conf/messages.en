@@ -158,3 +158,9 @@ inconclusiveResult.title=Your UK tax residency status
 inconclusiveResult.heading=Your UK tax residency status
 inconclusiveResult.p1=Based on the information you have provided, it has not been possible to determine your residency status for the tax year 2018-19.
 inconclusiveResult.p2=You’ll need to consider your connections to the UK, known as ’ties’. The Sufficient ties test will work out if your ties, taken together with the number of days you spend in the UK, will make you resident in the UK for a particular tax year.
+
+nonTaxResidentResult.title=Non resident
+nonTaxResidentResult.heading=Non resident
+nonTaxResidentResult.forTaxYear=For the tax year
+nonTaxResidentResult.taxYear=2018-19
+nonTaxResidentResult.info=This information is based on the details you have provided and is for information only.
