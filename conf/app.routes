@@ -15,3 +15,5 @@ GET        /unauthorised                                controllers.Unauthorised
 GET        /accessibility-statement                     controllers.AccessibilityController.onPageLoad
 
 GET        /home                                        controllers.HomePageController.onPageLoad()
+
+GET        /inconclusive-result                         controllers.InconclusiveResultController.onPageLoad()

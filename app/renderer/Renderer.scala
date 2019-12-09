@@ -44,6 +44,8 @@ class Renderer @Inject()(appConfig: FrontendAppConfig, renderer: NunjucksRendere
     "reportAProblemPartialUrl" -> appConfig.reportAProblemPartialUrl,
     "reportAProblemNonJSUrl" -> appConfig.reportAProblemNonJSUrl,
     "informationUrl" -> appConfig.informationUrl,
-    "statutoryResidenceTestUrl" -> appConfig.statutoryResidenceTestUrl
+    "statutoryResidenceTestUrl" -> appConfig.statutoryResidenceTestUrl,
+    "contactHmrcUrl" -> appConfig.contactHmrcUrl,
+    "taxHelpUrl" -> appConfig.taxHelpUrl
   )
 }

@@ -150,6 +150,11 @@ common.result.p1=This information is based on the details you have provided and 
 common.result.further.info=For further information, you can:
 common.result.further.info.l1=refer to the guidance in the
 common.result.further.info.l2=contact
-common.result.further.info.l2.anchor=HMRC
-common.result.further.info.l3.anchor=get help from an
-common.result.further.info.l3.anchor=accountant
+common.result.further.info.hmrc=HMRC
+common.result.further.info.l3=get help from an
+common.result.further.info.accountant=accountant
+
+inconclusiveResult.title=Your UK tax residency status
+inconclusiveResult.heading=Your UK tax residency status
+inconclusiveResult.p1=Based on the information you have provided, it has not been possible to determine your residency status for the tax year 2018-19.
+inconclusiveResult.p2=You’ll need to consider your connections to the UK, known as ’ties’. The Sufficient ties test will work out if your ties, taken together with the number of days you spend in the UK, will make you resident in the UK for a particular tax year.
