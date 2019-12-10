@@ -1,0 +1,33 @@
+{% extends "includes/layout.njk" %}
+
+{% from "macros/title.njk"                         import title %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageTitle %}
+  {{ title(messages("taxResidentResult.title")) }}
+{% endblock %}
+
+{% block mainContent %}
+
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {{ govukPanel({
+          titleText: messages("taxResidentResult.heading"),
+          html: messages("taxResidentResult.forTaxYear")+"<br><strong>"+ messages("taxResidentResult.taxYear") + "</strong>"
+        }) }}
+
+       <p class="govuk-body">{{ messages("taxResidentResult.info") }}</p>
+
+       <p class="govuk-body">{{ messages("common.result.further.info") }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ messages("common.result.further.info.l1") }} <a href="https://www.gov.uk/government/publications/rdr3-statutory-residence-test-srt/guidance-note-for-statutory-residence-test-srt-rdr3" target="_blank">{{ messages("common.statutoryResidenceTest") }}</a> </li>
+            <li>{{ messages("common.result.further.info.l2") }} <a href="https://www.gov.uk/contact-hmrc" target="_blank">{{ messages("common.result.further.info.hmrc") }}</a></li>
+            <li>{{ messages("common.result.further.info.l3") }} <a href="https://www.gov.uk/tax-help" target="_blank">{{ messages("common.result.further.info.accountant") }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

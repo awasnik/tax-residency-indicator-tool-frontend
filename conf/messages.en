@@ -164,3 +164,9 @@ nonTaxResidentResult.heading=Non resident
 nonTaxResidentResult.forTaxYear=For the tax year
 nonTaxResidentResult.taxYear=2018-19
 nonTaxResidentResult.info=This information is based on the details you have provided and is for information only.
+
+taxResidentResult.title=Resident
+taxResidentResult.heading=Resident
+taxResidentResult.forTaxYear=For the tax year
+taxResidentResult.taxYear=2018-19
+taxResidentResult.info=This information is based on the details you have provided and is for information only.

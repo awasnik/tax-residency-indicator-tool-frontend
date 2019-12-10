@@ -19,3 +19,5 @@ GET        /home                                        controllers.HomePageCont
 GET        /inconclusive-result                         controllers.InconclusiveResultController.onPageLoad()
 
 GET        /non-tax-resident-result                     controllers.NonTaxResidentResultController.onPageLoad()
+
+GET        /tax-resident-result                         controllers.TaxResidentResultController.onPageLoad()
