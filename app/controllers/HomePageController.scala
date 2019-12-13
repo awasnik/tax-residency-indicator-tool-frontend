@@ -18,9 +18,11 @@ package controllers
 
 import controllers.actions._
 import javax.inject.Inject
+import models.UserAnswers
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import renderer.Renderer
+import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.ExecutionContext
@@ -29,6 +31,7 @@ class HomePageController @Inject()(
     override val messagesApi: MessagesApi,
     identify: IdentifierAction,
     getData: DataRetrievalAction,
+    sessionRepository: SessionRepository,
     val controllerComponents: MessagesControllerComponents,
     renderer: Renderer
 )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
@@ -37,5 +40,13 @@ class HomePageController @Inject()(
     implicit request =>
 
       renderer.render("homePage.njk").map(Ok(_))
+  }
+
+  def onSubmit: Action[AnyContent] = (identify andThen getData).async {
+    implicit request =>
+
+      sessionRepository.set(UserAnswers(request.internalId)).map{ _ =>
+        Redirect(routes.HomePageController.onPageLoad())
+      }
   }
 }

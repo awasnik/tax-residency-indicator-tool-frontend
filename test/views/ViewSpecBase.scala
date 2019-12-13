@@ -17,19 +17,30 @@
 package views
 
 import base.SpecBase
+import config.FrontendAppConfig
+import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, FakeIdentifierAction, IdentifierAction}
 import models.UserAnswers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalatest.Assertion
+import play.api.Application
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.twirl.api.Html
+import renderer.Renderer
 
 import scala.reflect.ClassTag
 
 trait ViewSpecBase extends SpecBase {
 
+  override lazy val app: Application = commonApplicationBuilder().build()
+
+  val renderer: Renderer = injected[Renderer]
+  val config: FrontendAppConfig = injected[FrontendAppConfig]
+
   def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = {
     val application = applicationBuilder(data).build()
-    val view = application.injector.instanceOf[A]
+    val view = injected[A]
     application.stop()
     view
   }
@@ -98,9 +109,9 @@ trait ViewSpecBase extends SpecBase {
     assert(radio.attr("name") == name, s"\n\nElement $id does not have name $name")
     assert(radio.attr("value") == value, s"\n\nElement $id does not have value $value")
     if (isChecked) {
-      assert(radio.attr("checked") == "checked", s"\n\nElement $id is not checked")
+      assert(radio.hasAttr("checked"), s"\n\nElement $id is not checked")
     } else {
-      assert(!radio.hasAttr("checked") && radio.attr("checked") != "checked", s"\n\nElement $id is checked")
+      assert(!radio.hasAttr("checked"), s"\n\nElement $id is checked")
     }
   }
 
@@ -130,6 +141,15 @@ trait ViewSpecBase extends SpecBase {
       val actualName = button.attr("name")
       assert(name == actualName, "\n\nElement " + name + " was not rendered on the page.\n")
     }
+  }
+
+  def assertContainsValue(doc: Document, cssSelector: String, expectedValue: String): Assertion = {
+    val elements = doc.select(cssSelector)
+
+    if (elements.isEmpty) throw new IllegalArgumentException(s"CSS Selector $cssSelector wasn't rendered.")
+
+    //<p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
+    assert(elements.first().html().replace("\n", "").contains(expectedValue))
   }
 
 }

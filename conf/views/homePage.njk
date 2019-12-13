@@ -43,10 +43,15 @@
 
           <p class="govuk-body">{{ messages("homePage.p5") }}</p>
 
-          {{ govukButton({
-            text: messages("site.continue"),
-            name: "continue"
-          }) }}
+          <form action="{{ routes.controllers.HomePageController.onSubmit(mode).url }}" method="post">
+
+              {{ csrf() | safe }}
+              {{ govukButton({
+                text: messages("site.continue"),
+                name: "continue"
+              }) }}
+
+          </form>
 
       </div>
     </div>

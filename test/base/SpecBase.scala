@@ -20,18 +20,19 @@ import config.FrontendAppConfig
 import controllers.actions._
 import models.UserAnswers
 import org.mockito.Mockito
-import org.scalatest.{BeforeAndAfterEach, FreeSpec, MustMatchers, OptionValues, TryValues}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest._
 import org.scalatestplus.mockito.MockitoSugar
-import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
+import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.inject.{Injector, bind}
 import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.nunjucks.NunjucksRenderer
+
+import scala.reflect.ClassTag
 
 trait SpecBase extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues with TryValues
   with ScalaFutures with IntegrationPatience with MockitoSugar with BeforeAndAfterEach {
@@ -44,11 +45,13 @@ trait SpecBase extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with 
 
   def emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
-  def injector: Injector = app.injector
+  def injected[T](c: Class[T]): T = app.injector.instanceOf(c)
 
-  def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  def injected[T](implicit evidence: ClassTag[T]): T = app.injector.instanceOf[T]
 
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  def frontendAppConfig: FrontendAppConfig = injected[FrontendAppConfig]
+
+  def messagesApi: MessagesApi = injected[MessagesApi]
 
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
@@ -56,12 +59,17 @@ trait SpecBase extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with 
 
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 
-  protected def applicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
+  protected def commonApplicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[DataRequiredAction].to[DataRequiredActionImpl],
         bind[IdentifierAction].to[FakeIdentifierAction],
-        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
+        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers))
+      )
+
+  protected def applicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
+    commonApplicationBuilder(userAnswers)
+      .overrides(
         bind[NunjucksRenderer].toInstance(mockRenderer)
       )
 }

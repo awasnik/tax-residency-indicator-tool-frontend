@@ -35,14 +35,6 @@ import views.behaviours.ViewBehaviours
 
 class NonTaxResidentResultSpec extends SpecBase with MockitoSugar with NunjucksSupport with JsonMatchers with ViewBehaviours{
 
-  val application: Application = new GuiceApplicationBuilder()
-    .overrides(
-      bind[DataRequiredAction].to[DataRequiredActionImpl],
-      bind[IdentifierAction].to[FakeIdentifierAction]
-    ).build()
-
-  val renderer: Renderer = application.injector.instanceOf[Renderer]
-  val config: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
   lazy val nonResidentRoute: String = routes.NonTaxResidentResultController.onPageLoad().url
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest(GET, nonResidentRoute)
 

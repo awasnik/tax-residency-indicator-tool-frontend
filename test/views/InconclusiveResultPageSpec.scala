@@ -35,14 +35,6 @@ import views.behaviours.ViewBehaviours
 
 class InconclusiveResultPageSpec extends SpecBase with MockitoSugar with NunjucksSupport with JsonMatchers with ViewBehaviours {
 
-  val application: Application = new GuiceApplicationBuilder()
-    .overrides(
-      bind[DataRequiredAction].to[DataRequiredActionImpl],
-      bind[IdentifierAction].to[FakeIdentifierAction]
-    ).build()
-
-  val renderer: Renderer = application.injector.instanceOf[Renderer]
-  val config: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
   lazy val inconclusivePageRoute: String = routes.InconclusiveResultController.onPageLoad().url
   implicit val request: FakeRequest[AnyContentAsEmpty.type]  = FakeRequest(GET, inconclusivePageRoute)
 

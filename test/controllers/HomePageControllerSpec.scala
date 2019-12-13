@@ -17,13 +17,17 @@
 package controllers
 
 import base.SpecBase
+import models.UserAnswers
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.mvc.BodyParser.Empty
 import play.twirl.api.Html
+import repositories.SessionRepository
 
 import scala.concurrent.Future
 
@@ -47,6 +51,25 @@ class HomePageControllerSpec extends SpecBase with MockitoSugar {
       verify(mockRenderer, times(1)).render(templateCaptor.capture(), any())(any())
 
       templateCaptor.getValue mustEqual "homePage.njk"
+
+      application.stop()
+    }
+
+    "must redirect to the next page when valid data is submitted and user session should be created" in {
+
+      val application = applicationBuilder().build()
+
+      val homePageRoute = routes.HomePageController.onPageLoad().url
+
+      val request = FakeRequest(POST, routes.HomePageController.onSubmit().url)
+
+      val result = route(application, request).value
+
+      injected[SessionRepository].get("id").futureValue must not be None
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result).value mustEqual homePageRoute
 
       application.stop()
     }

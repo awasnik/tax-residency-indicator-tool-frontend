@@ -15,6 +15,7 @@ GET        /unauthorised                                controllers.Unauthorised
 GET        /accessibility-statement                     controllers.AccessibilityController.onPageLoad
 
 GET        /home                                        controllers.HomePageController.onPageLoad()
+POST       /home                                        controllers.HomePageController.onSubmit()
 
 GET        /inconclusive-result                         controllers.InconclusiveResultController.onPageLoad()
 
