@@ -170,3 +170,12 @@ taxResidentResult.heading=Resident
 taxResidentResult.forTaxYear=For the tax year
 taxResidentResult.taxYear=2018-19
 taxResidentResult.info=This information is based on the details you have provided and is for information only.
+
+relevantTaxYear.title=Which tax year do you want to check your tax residency status for
+relevantTaxYear.heading=Which tax year do you want to check your tax residency status for?
+relevantTaxYear.pY=2018-19
+relevantTaxYear.pY-1=2017-18
+relevantTaxYear.pY-2=2016-17
+relevantTaxYear.pY-3=2015-16
+relevantTaxYear.checkYourAnswersLabel=Enter relevant tax year
+relevantTaxYear.error.required=Select relevantTaxYear

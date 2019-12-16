@@ -29,6 +29,21 @@ import uk.gov.hmrc.viewmodels.Text.Literal
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
+  def relevantTaxYear: Option[Row] = userAnswers.get(RelevantTaxYearPage) map {
+    answer =>
+      Row(
+        key     = Key(msg"relevantTaxYear.checkYourAnswersLabel", classes = Seq("govuk-!-width-one-half")),
+        value   = Value(msg"relevantTaxYear.$answer"),
+        actions = List(
+          Action(
+            content            = msg"site.edit",
+            href               = routes.RelevantTaxYearController.onPageLoad(CheckMode).url,
+            visuallyHiddenText = Some(msg"site.edit.hidden".withArgs(msg"relevantTaxYear.checkYourAnswersLabel"))
+          )
+        )
+      )
+  }
+
   private def yesOrNo(answer: Boolean): Content =
     if (answer) {
       msg"site.yes"

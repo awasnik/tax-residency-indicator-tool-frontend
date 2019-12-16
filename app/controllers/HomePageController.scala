@@ -18,7 +18,7 @@ package controllers
 
 import controllers.actions._
 import javax.inject.Inject
-import models.UserAnswers
+import models.{NormalMode, UserAnswers}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import renderer.Renderer
@@ -46,7 +46,8 @@ class HomePageController @Inject()(
     implicit request =>
 
       sessionRepository.set(UserAnswers(request.internalId)).map{ _ =>
-        Redirect(routes.HomePageController.onPageLoad())
+        Redirect(routes.RelevantTaxYearController.onPageLoad(NormalMode))
       }
   }
+
 }

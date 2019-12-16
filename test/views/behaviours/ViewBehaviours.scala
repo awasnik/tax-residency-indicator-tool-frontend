@@ -52,6 +52,7 @@ trait ViewBehaviours extends ViewSpecBase {
         "display the correct guidance" in {
 
           val doc = asDocument(view)
+          println(doc)
           for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
         }
       }

@@ -22,3 +22,11 @@ GET        /inconclusive-result                         controllers.Inconclusive
 GET        /non-tax-resident-result                     controllers.NonTaxResidentResultController.onPageLoad()
 
 GET        /tax-resident-result                         controllers.TaxResidentResultController.onPageLoad()
+
+GET        /select-tax-year                             controllers.RelevantTaxYearController.onPageLoad(mode: Mode = NormalMode)
+
+POST       /select-tax-year                             controllers.RelevantTaxYearController.onSubmit(mode: Mode = NormalMode)
+
+GET        /changeRelevantTaxYear                       controllers.RelevantTaxYearController.onPageLoad(mode: Mode = CheckMode)
+
+POST       /changeRelevantTaxYear                       controllers.RelevantTaxYearController.onSubmit(mode: Mode = CheckMode)

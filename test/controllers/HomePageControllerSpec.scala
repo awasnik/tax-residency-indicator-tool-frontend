@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import models.UserAnswers
+import models.{NormalMode, UserAnswers}
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
@@ -59,7 +59,7 @@ class HomePageControllerSpec extends SpecBase with MockitoSugar {
 
       val application = applicationBuilder().build()
 
-      val homePageRoute = routes.HomePageController.onPageLoad().url
+      val relevantTaxYearPageRoute = routes.RelevantTaxYearController.onPageLoad(NormalMode).url
 
       val request = FakeRequest(POST, routes.HomePageController.onSubmit().url)
 
@@ -69,7 +69,7 @@ class HomePageControllerSpec extends SpecBase with MockitoSugar {
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual homePageRoute
+      redirectLocation(result).value mustEqual relevantTaxYearPageRoute
 
       application.stop()
     }

@@ -17,7 +17,7 @@
 package views.behaviours
 
 import models.NormalMode
-import play.api.data.{Form, FormError}
+import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.viewmodels.Radios
@@ -26,24 +26,20 @@ import scala.concurrent.Future
 
 trait QuestionViewBehaviours extends ViewBehaviours {
 
-  def createJson[A](form: Form[A], options: Form[_] => Seq[Radios.Item]): JsObject = {
+  def createJson[A](form: Form[A], options : Form[A] => Seq[Radios.Item]): JsObject ={
     Json.obj(
-      "form" -> form.data,
-      "mode" -> NormalMode,
+      "form"   -> form.data,
+      "mode"   -> NormalMode,
       "radios" -> options(form)
     )
   }
-
-  val errorKey = "value"
-  val errorMessage = "error.number"
-  val error = FormError(errorKey, errorMessage)
 
   def optionsPage[A](
                       createView: (String, JsObject) => Future[HtmlFormat.Appendable],
                       viewName: String,
                       form: Form[A],
                       fieldName: String,
-                      options: Form[_] => Seq[Radios.Item]): Unit =
+                      options : Form[A] => Seq[Radios.Item]): Unit =
     s"behave like a page with a $fieldName radio options question" - {
 
       "rendered" - {
@@ -70,6 +66,31 @@ trait QuestionViewBehaviours extends ViewBehaviours {
               assertContainsRadioButton(doc, unselectedOption.id, fieldName, unselectedOption.value, false)
             }
           }
+        }
+      }
+    }
+
+  def optionsPageWithError[A](
+                               createView: (String, JsObject) => Future[HtmlFormat.Appendable],
+                               viewName: String,
+                               fieldName: String,
+                               expectedJson: JsObject): Unit =
+    s"behave like a page with a $fieldName radio options question with error" - {
+      "rendered with an error" - {
+        "show an error summary" in {
+          val doc = asDocument(createView(viewName, expectedJson).futureValue)
+          assertRenderedById(doc, "error-summary-title")
+        }
+
+        "show an error in the value field's label" in {
+          val doc = asDocument(createView(viewName, expectedJson).futureValue)
+          val errorSpan = doc.getElementsByClass("govuk-error-message")
+          errorSpan.text must include(messages("error.title.prefix"))
+        }
+
+        "show an error prefix in the browser title" in {
+          val doc = asDocument(createView(viewName, expectedJson).futureValue)
+          assertContainsValue(doc, "title", messages("error.title.prefix"))
         }
       }
     }
