@@ -12,8 +12,11 @@
 
 {% block mainContent %}
 
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
   {{ govukBackLink({
-    text: messages("site.back")
+    text: site.back,
+    href: "/tax-residency-indicator-tool/home"
   }) }}
 
   <div class="govuk-main-wrapper">

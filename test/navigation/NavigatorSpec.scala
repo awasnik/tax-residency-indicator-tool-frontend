@@ -43,6 +43,16 @@ class NavigatorSpec extends SpecBase with ScalaCheckPropertyChecks with Generato
               .mustBe(routes.IndexController.onPageLoad())
         }
       }
+
+      "must go from a page that doesn't exist in the route map to Relevant Tax Year" in {
+
+        forAll(arbitrary[UserAnswers]) {
+          answers =>
+
+            navigator.nextPage(RelevantTaxYearPage, NormalMode, answers)
+              .mustBe(routes.RelevantTaxYearController.onPageLoad(NormalMode))
+        }
+      }
     }
 
     "in Check mode" - {

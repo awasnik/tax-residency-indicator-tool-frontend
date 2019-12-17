@@ -27,7 +27,7 @@ sealed trait RelevantTaxYear
 
 object RelevantTaxYear extends Enumerable.Implicits with CurrentTaxYear{
 
-  override def now = () => DateTime.now
+  def now = () => DateTime.now
   val cTaxYear = taxYearFor(today)
 
   case object Py extends WithName(getTaxYear(cTaxYear,1)) with RelevantTaxYear

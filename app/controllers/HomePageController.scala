@@ -19,6 +19,8 @@ package controllers
 import controllers.actions._
 import javax.inject.Inject
 import models.{NormalMode, UserAnswers}
+import navigation.Navigator
+import pages.RelevantTaxYearPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import renderer.Renderer
@@ -33,8 +35,10 @@ class HomePageController @Inject()(
     getData: DataRetrievalAction,
     sessionRepository: SessionRepository,
     val controllerComponents: MessagesControllerComponents,
-    renderer: Renderer
+    renderer: Renderer,
+    navigator: Navigator
 )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async {
     implicit request =>
@@ -44,9 +48,9 @@ class HomePageController @Inject()(
 
   def onSubmit: Action[AnyContent] = (identify andThen getData).async {
     implicit request =>
-
-      sessionRepository.set(UserAnswers(request.internalId)).map{ _ =>
-        Redirect(routes.RelevantTaxYearController.onPageLoad(NormalMode))
+      val userAnswer = UserAnswers(request.internalId)
+      sessionRepository.set(userAnswer).map{ _ =>
+        Redirect(navigator.nextPage(RelevantTaxYearPage,NormalMode,userAnswer))
       }
   }
 

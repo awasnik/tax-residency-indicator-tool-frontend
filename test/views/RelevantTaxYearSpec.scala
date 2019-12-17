@@ -22,7 +22,8 @@ import forms.RelevantTaxYearFormProvider
 import matchers.JsonMatchers
 import models.{NormalMode, RelevantTaxYear}
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.libs.json.Json
+import play.api.data.FormError
+import play.api.libs.json.{JsObject, Json}
 import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.GET
@@ -39,6 +40,11 @@ class RelevantTaxYearSpec extends SpecBase with MockitoSugar with NunjucksSuppor
   val formProvider = new RelevantTaxYearFormProvider()
   val form = formProvider()
 
+  val expectedJsonWithError: JsObject = Json.obj(
+    "form"   -> formProvider().withError(FormError("value", "error")),
+    "mode"   -> NormalMode,
+    "radios" -> RelevantTaxYear.radios(form)
+  )
 
   val json = Json.obj(
     "form"   -> form,
@@ -48,12 +54,10 @@ class RelevantTaxYearSpec extends SpecBase with MockitoSugar with NunjucksSuppor
 
   val html: Html = renderer.render("relevantTaxYear.njk" ,json).futureValue
 
-  behave like normalPage(html, "relevantTaxYear",
-    "pY", "pY-1", "pY-2","pY-3")
-
   behave like optionsPage[RelevantTaxYear](
     renderer.render, "relevantTaxYear.njk", form, "value", RelevantTaxYear.radios)
 
-
+  behave like optionsPageWithError[RelevantTaxYear](
+    renderer.render, "relevantTaxYear.njk", "value", expectedJsonWithError)
 
 }

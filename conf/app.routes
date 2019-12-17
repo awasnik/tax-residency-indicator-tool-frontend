@@ -15,6 +15,7 @@ GET        /unauthorised                                controllers.Unauthorised
 GET        /accessibility-statement                     controllers.AccessibilityController.onPageLoad
 
 GET        /home                                        controllers.HomePageController.onPageLoad()
+
 POST       /home                                        controllers.HomePageController.onSubmit()
 
 GET        /inconclusive-result                         controllers.InconclusiveResultController.onPageLoad()
@@ -27,6 +28,6 @@ GET        /select-tax-year                             controllers.RelevantTaxY
 
 POST       /select-tax-year                             controllers.RelevantTaxYearController.onSubmit(mode: Mode = NormalMode)
 
-GET        /changeRelevantTaxYear                       controllers.RelevantTaxYearController.onPageLoad(mode: Mode = CheckMode)
+GET        /change-select-tax-year                      controllers.RelevantTaxYearController.onPageLoad(mode: Mode = CheckMode)
 
-POST       /changeRelevantTaxYear                       controllers.RelevantTaxYearController.onSubmit(mode: Mode = CheckMode)
+POST       /change-select-tax-year                      controllers.RelevantTaxYearController.onSubmit(mode: Mode = CheckMode)

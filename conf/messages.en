@@ -173,9 +173,5 @@ taxResidentResult.info=This information is based on the details you have provide
 
 relevantTaxYear.title=Which tax year do you want to check your tax residency status for
 relevantTaxYear.heading=Which tax year do you want to check your tax residency status for?
-relevantTaxYear.pY=2018-19
-relevantTaxYear.pY-1=2017-18
-relevantTaxYear.pY-2=2016-17
-relevantTaxYear.pY-3=2015-16
 relevantTaxYear.checkYourAnswersLabel=Enter relevant tax year
-relevantTaxYear.error.required=Select relevantTaxYear
+relevantTaxYear.error.required=Select a tax year
