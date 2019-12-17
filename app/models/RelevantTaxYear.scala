@@ -19,7 +19,6 @@ package models
 import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.i18n.Messages
-import play.api.libs.json._
 import uk.gov.hmrc.time.{CurrentTaxYear, TaxYear}
 import uk.gov.hmrc.viewmodels.Text.Literal
 import uk.gov.hmrc.viewmodels._
@@ -31,11 +30,7 @@ object RelevantTaxYear extends Enumerable.Implicits with CurrentTaxYear{
   override def now = () => DateTime.now
   val cTaxYear = taxYearFor(today)
 
- /* case object Py extends WithName("pY") with RelevantTaxYear
-  case object Py1 extends WithName("pY-1") with RelevantTaxYear
-  case object Py2 extends WithName("pY-2") with RelevantTaxYear
-  case object Py3 extends WithName("pY-3") with RelevantTaxYear*/
- case object Py extends WithName(getTaxYear(cTaxYear,1)) with RelevantTaxYear
+  case object Py extends WithName(getTaxYear(cTaxYear,1)) with RelevantTaxYear
   case object Py1 extends WithName(getTaxYear(cTaxYear,2)) with RelevantTaxYear
   case object Py2 extends WithName(getTaxYear(cTaxYear,3)) with RelevantTaxYear
   case object Py3 extends WithName(getTaxYear(cTaxYear,4)) with RelevantTaxYear
@@ -48,16 +43,12 @@ object RelevantTaxYear extends Enumerable.Implicits with CurrentTaxYear{
     Py3
   )
 
-
-/*  val values: Seq[String] = Seq(
-    getTaxYear(cTaxYear,1),
-    getTaxYear(cTaxYear,2),
-    getTaxYear(cTaxYear,3),
-    getTaxYear(cTaxYear,4)
-  )*/
-
   def getTaxYear(taxYear: TaxYear, counter: Int):String = {
-    (taxYear.currentYear.toInt-counter).toString + (taxYear.currentYear.toInt-(counter-1)).toString.replaceFirst("20","-")
+
+    val cYear = cTaxYear.currentYear-(counter-1)
+    val pYear = cTaxYear.currentYear-counter
+    (pYear + "-" + cYear.toString().substring(2))
+
   }
 
   def radios(form: Form[_])(implicit messages: Messages): Seq[Radios.Item] = {
@@ -67,12 +58,12 @@ object RelevantTaxYear extends Enumerable.Implicits with CurrentTaxYear{
       Radios.Radio(Literal(getTaxYear(cTaxYear,1)), Py.toString),
       Radios.Radio(Literal(getTaxYear(cTaxYear,2)), Py1.toString),
       Radios.Radio(Literal(getTaxYear(cTaxYear,3)), Py2.toString),
-      Radios.Radio(Literal(getTaxYear(cTaxYear,2)), Py3.toString)
+      Radios.Radio(Literal(getTaxYear(cTaxYear,4)), Py3.toString)
     )
 
     Radios(field, items)
   }
 
-implicit val enumerable: Enumerable[RelevantTaxYear] =
+  implicit val enumerable: Enumerable[RelevantTaxYear] =
     Enumerable(values.map(v => v.toString -> v): _*)
 }

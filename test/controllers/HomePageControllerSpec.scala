@@ -17,19 +17,18 @@
 package controllers
 
 import base.SpecBase
-import models.{NormalMode, UserAnswers}
+import models.{NormalMode}
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.mvc.BodyParser.Empty
 import play.twirl.api.Html
 import repositories.SessionRepository
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 
 class HomePageControllerSpec extends SpecBase with MockitoSugar {
 
@@ -63,13 +62,13 @@ class HomePageControllerSpec extends SpecBase with MockitoSugar {
 
       val request = FakeRequest(POST, routes.HomePageController.onSubmit().url)
 
-      val result = route(application, request).value
+      val result = Await.result(route(application, request).value, 5 seconds)
 
       injected[SessionRepository].get("id").futureValue must not be None
 
-      status(result) mustEqual SEE_OTHER
+      result.header.status mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual relevantTaxYearPageRoute
+      redirectLocation(Future.successful(result)).value mustEqual relevantTaxYearPageRoute
 
       application.stop()
     }
